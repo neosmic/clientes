@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +12,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('cities')->group(function () {
+    Route::get('/{cod}', 'App\Http\Controllers\CitiesController@show');
+    Route::put('/{cod}', 'App\Http\Controllers\CitiesController@update')->name('cities.update');
+    Route::delete('/{cod}', 'App\Http\Controllers\CitiesController@destroy');
+    Route::get('/', 'App\Http\Controllers\CitiesController@index')->name('cities.show');
+    Route::post('/', 'App\Http\Controllers\CitiesController@store');
+});
+
+Route::prefix('clients')->group(function () {
+    Route::get('/{cod}', 'App\Http\Controllers\ClientController@show');
+    Route::put('/{cod}', 'App\Http\Controllers\ClientController@update')->name('client.update');
+    Route::delete('/{cod}', 'App\Http\Controllers\ClientController@destroy');
+    Route::get('/', 'App\Http\Controllers\ClientController@index')->name('client.show');
+    Route::post('/', 'App\Http\Controllers\ClientController@store');
+});
+
+Route::prefix('users')->group(function () {
+    Route::get('/{id}', 'App\Http\Controllers\UsersController@show');
+    Route::put('/{id}', 'App\Http\Controllers\UsersController@update')->name('user.update');
+    Route::delete('/{id}', 'App\Http\Controllers\UsersController@destroy');
+    Route::get('/', 'App\Http\Controllers\UsersController@index')->name('user.show');
+    Route::post('/', 'App\Http\Controllers\UsersController@store');
 });
