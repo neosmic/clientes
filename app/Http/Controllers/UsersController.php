@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserRegistered;
 use App\Http\Requests\StoreUsersRequest;
 use App\Http\Requests\UpdateUsersRequest;
 use App\Models\User;
@@ -22,10 +23,10 @@ class UsersController extends Controller
      */
     public function store(StoreUsersRequest $request)
     {
-
         $data = $request->all();
         $user = User::create($data);
         $user->save();
+        //event(new UserRegistered($user));
         return ['message' => "Stored  {$data['name']} User!", 'data' => $user];
     }
 
